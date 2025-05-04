@@ -28,12 +28,10 @@ class ListTasks extends StatelessWidget {
                     PopupMenuItem(value: 2, child: Text('Delete')),
                   ],
               onSelected: (value) {
-                if (value == 1) {
-                }
-                if (value == 2) {
-                }
+                if (value == 1) {}
+                if (value == 2) {}
               },
-              icon: Icon(Icons.more_vert_rounded, ),
+              icon: Icon(Icons.more_vert_rounded),
             ),
           ),
         ),
