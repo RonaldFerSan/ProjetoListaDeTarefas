@@ -9,7 +9,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<List> lista = [
+  List<List> tasklist = [
     ['exercicios', false],
     ['estudar', true],
   ];
@@ -19,16 +19,16 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.blueGrey[100],
       appBar: AppBar(
         title: Center(
-          child: Text('Minhas Tarefas', style: TextStyle(color: Colors.white)),
+          child: Text('Minhas tarefas', style: TextStyle(color: Colors.white)),
         ),
         backgroundColor: Colors.blueGrey,
       ),
       body: ListView.builder(
-        itemCount: lista.length,
+        itemCount: tasklist.length,
         itemBuilder: (context, index) {
-          final tarefa = lista[index][0];
-          final check = lista[index][1];
-          return ListTasks(tarefa: tarefa, check: check);
+          final task = tasklist[index][0];
+          final check = tasklist[index][1];
+          return ListTasks(task: task, check: check);
         },
       ),
       floatingActionButton: Row(

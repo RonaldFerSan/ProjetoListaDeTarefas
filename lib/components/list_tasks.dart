@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class ListTasks extends StatelessWidget {
-  final String tarefa;
+  final String task;
   final bool check;
-  const ListTasks({super.key, required this.tarefa, required this.check});
+  const ListTasks({super.key, required this.task, required this.check});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class ListTasks extends StatelessWidget {
 
         child: ListTile(
           leading: Checkbox(value: check, onChanged: (p0) {}),
-          title: Text(tarefa),
+          title: Text(task),
           trailing: Expanded(
             child: PopupMenuButton(
               itemBuilder:
@@ -34,7 +33,7 @@ class ListTasks extends StatelessWidget {
                 if (value == 2) {
                 }
               },
-              icon: Icon(Icons.more_vert_rounded),
+              icon: Icon(Icons.more_vert_rounded, ),
             ),
           ),
         ),
