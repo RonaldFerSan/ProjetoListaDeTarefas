@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lista_de_tarefas/Pages/home_page.dart';
+import 'package:lista_de_tarefas/data.dart';
+import 'package:lista_de_tarefas/home_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(create: (_) => ListTasks(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
