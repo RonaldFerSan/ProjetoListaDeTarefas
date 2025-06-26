@@ -8,9 +8,9 @@ class ListViewTasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final listTasks = Provider.of<LoadListProvider>(context);
+    final stateManeger = Provider.of<LoadListProvider>(context);
 
-    return (listTasks.tasks.isEmpty)
+    return (stateManeger.tasks.isEmpty)
         ? Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -27,9 +27,9 @@ class ListViewTasks extends StatelessWidget {
           ),
         )
         : ListView.builder(
-          itemCount: listTasks.tasks.length,
+          itemCount: stateManeger.tasks.length,
           itemBuilder: (context, index) {
-            final Task task = listTasks.tasks[index];
+            final Task task = stateManeger.tasks[index];
             return Container(
               padding: EdgeInsets.only(top: 5),
               child: Row(
@@ -37,17 +37,123 @@ class ListViewTasks extends StatelessWidget {
                   Checkbox(
                     value: task.checked,
                     onChanged: (value) {
-                      listTasks.updateCheck(task.id, value = !task.checked);
+                      stateManeger.updateCheck(task.id, value = !task.checked);
                     },
                   ),
                   SizedBox(width: 5),
-                  Text(task.name),
+                  (task.checked == false)
+                      ? Text(task.name)
+                      : Text(
+                        task.name,
+                        style: TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
-                        IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        'Editar tarefa',
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                      SizedBox(height: 5),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          enabledBorder: OutlineInputBorder(),
+                                          label: Text('Editar'),
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          FilledButton(
+                                            onPressed: () {},
+                                            child: Text('Cancelar'),
+                                          ),
+                                          SizedBox(width: 5),
+                                          FilledButton(
+                                            onPressed: () {},
+                                            child: Text('  Salvar  '),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          icon: Icon(Icons.edit),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Center(
+                                  child: Container(
+                                    padding: EdgeInsets.all(20),
+                                    color: Colors.white,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          'Deletar a tarefa?',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(height: 10),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            FilledButton(
+                                              onPressed: () {
+                                                stateManeger.deleteTask(
+                                                  task.id,
+                                                );
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('Deletar'),
+                                            ),
+                                            SizedBox(width: 5),
+                                            FilledButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text('Cancelar'),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          icon: Icon(Icons.delete),
+                        ),
                       ],
                     ),
                   ),

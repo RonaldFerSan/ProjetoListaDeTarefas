@@ -16,18 +16,28 @@ class LoadListProvider with ChangeNotifier {
 
   final db = MyDatabase();
 
-  loadTasks() async {
+  void loadTasks() async {
     _tasks = await db.loadListTasks();
     notifyListeners();
   }
 
-  addTask(String name, bool checked) async {
+  void addTask(String name, bool checked) async {
     await db.addTask(name, checked ? 1 : 0);
     loadTasks();
   }
 
-  updateCheck(int id, bool checked) async {
+  void updateCheck(int id, bool checked) async {
     await db.updateCheck(id, checked ? 1 : 0);
+    loadTasks();
+  }
+
+  void deleteTask(int id) async {
+    await db.deleteTask(id);
+    loadTasks();
+  }
+
+  void editTask(int id, String name) async {
+    await db.editTask(id, name);
     loadTasks();
   }
 }

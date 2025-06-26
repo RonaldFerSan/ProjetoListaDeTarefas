@@ -58,4 +58,14 @@ class MyDatabase {
       whereArgs: [id],
     );
   }
+
+  Future<void> deleteTask(int id) async {
+    final db = await MyDatabase().db;
+    await db.delete("tasks", where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<void> editTask(int id, String name) async {
+    final db = await MyDatabase().db;
+    await db.update('tasks', {'name': name}, where: 'id = ?', whereArgs: [id]);
+  }
 }
