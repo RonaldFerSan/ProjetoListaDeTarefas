@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:lista_de_tarefas/data.dart';
 import 'package:lista_de_tarefas/home_page.dart';
+import 'package:lista_de_tarefas/load_list_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(create: (_) => ListTasks(), child: MyApp()));
+  runApp(
+    ChangeNotifierProvider(
+      create: (BuildContext context) {
+        return LoadListProvider();
+      },
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey),
+        ),
+        home: const HomePage(),
       ),
-      home: const HomePage(),
     );
   }
 }
