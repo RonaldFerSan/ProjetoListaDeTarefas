@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           useMaterial3: true,

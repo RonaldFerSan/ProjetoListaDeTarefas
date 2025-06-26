@@ -9,6 +9,7 @@ class ListViewTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final stateManeger = Provider.of<LoadListProvider>(context);
+    TextEditingController editController = TextEditingController();
 
     return (stateManeger.tasks.isEmpty)
         ? Center(
@@ -55,6 +56,7 @@ class ListViewTasks extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () {
+                            editController.text = task.name;
                             showDialog(
                               context: context,
                               builder: (context) {
@@ -69,6 +71,7 @@ class ListViewTasks extends StatelessWidget {
                                       ),
                                       SizedBox(height: 5),
                                       TextField(
+                                        controller: editController,
                                         decoration: InputDecoration(
                                           border: OutlineInputBorder(),
                                           enabledBorder: OutlineInputBorder(),
@@ -81,12 +84,20 @@ class ListViewTasks extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: [
                                           FilledButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
                                             child: Text('Cancelar'),
                                           ),
                                           SizedBox(width: 5),
                                           FilledButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              stateManeger.editTask(
+                                                task.id,
+                                                task.name,
+                                              );
+                                              Navigator.pop(context);
+                                            },
                                             child: Text('  Salvar  '),
                                           ),
                                         ],

@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
     final prov = Provider.of<LoadListProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
         title: const Text(
           "Minha Lista",
           style: TextStyle(fontWeight: FontWeight.w500),
