@@ -36,7 +36,7 @@ class MyDatabase {
 
   Future<List<Task>> loadListTasks() async {
     final db = await MyDatabase().db;
-    final listMaps = await db.query('tasks');
+    final listMaps = await db.query('tasks', orderBy: 'checked ASC');
     final listTasks = listMaps.map((map) => Task.fromMap(map)).toList();
     return listTasks;
   }

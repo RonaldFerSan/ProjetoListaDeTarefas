@@ -11,23 +11,8 @@ class ListViewTasks extends StatelessWidget {
     final stateManeger = Provider.of<LoadListProvider>(context);
     TextEditingController editController = TextEditingController();
 
-    return (stateManeger.tasks.isEmpty)
-        ? Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "**Parabéns**",
-                style: TextStyle(fontSize: 20, color: Colors.blueGrey[600]),
-              ),
-              Text(
-                "Você não tem nunhuma tarefa",
-                style: TextStyle(color: Colors.blueGrey[200]),
-              ),
-            ],
-          ),
-        )
-        : ListView.builder(
+    return (stateManeger.tasks.isNotEmpty)
+        ? ListView.builder(
           itemCount: stateManeger.tasks.length,
           itemBuilder: (context, index) {
             final Task task = stateManeger.tasks[index];
@@ -85,13 +70,6 @@ class ListViewTasks extends StatelessWidget {
                                         children: [
                                           FilledButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text('Cancelar'),
-                                          ),
-                                          SizedBox(width: 5),
-                                          FilledButton(
-                                            onPressed: () {
                                               stateManeger.editTask(
                                                 task.id,
                                                 task.name,
@@ -99,6 +77,13 @@ class ListViewTasks extends StatelessWidget {
                                               Navigator.pop(context);
                                             },
                                             child: Text('  Salvar  '),
+                                          ),
+                                          SizedBox(width: 5),
+                                          FilledButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text('Cancelar'),
                                           ),
                                         ],
                                       ),
@@ -172,6 +157,21 @@ class ListViewTasks extends StatelessWidget {
               ),
             );
           },
+        )
+        : Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "**Parabéns**",
+                style: TextStyle(fontSize: 20, color: Colors.blueGrey[600]),
+              ),
+              Text(
+                "Você não tem nunhuma tarefa",
+                style: TextStyle(color: Colors.blueGrey[200]),
+              ),
+            ],
+          ),
         );
   }
 }
