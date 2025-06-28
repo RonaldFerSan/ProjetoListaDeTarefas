@@ -56,6 +56,7 @@ class ListViewTasks extends StatelessWidget {
                                       ),
                                       SizedBox(height: 5),
                                       TextField(
+                                        autofocus: true,
                                         controller: editController,
                                         decoration: InputDecoration(
                                           border: OutlineInputBorder(),
@@ -72,9 +73,10 @@ class ListViewTasks extends StatelessWidget {
                                             onPressed: () {
                                               stateManeger.editTask(
                                                 task.id,
-                                                task.name,
+                                                editController.text.trim(),
                                               );
                                               Navigator.pop(context);
+                                              FocusScope.of(context).unfocus();
                                             },
                                             child: Text('  Salvar  '),
                                           ),
@@ -82,6 +84,7 @@ class ListViewTasks extends StatelessWidget {
                                           FilledButton(
                                             onPressed: () {
                                               Navigator.pop(context);
+                                              FocusScope.of(context).unfocus();
                                             },
                                             child: Text('Cancelar'),
                                           ),
@@ -129,6 +132,9 @@ class ListViewTasks extends StatelessWidget {
                                                   task.id,
                                                 );
                                                 Navigator.pop(context);
+                                                FocusScope.of(
+                                                  context,
+                                                ).unfocus();
                                               },
                                               child: Text('Deletar'),
                                             ),
@@ -136,6 +142,9 @@ class ListViewTasks extends StatelessWidget {
                                             FilledButton(
                                               onPressed: () {
                                                 Navigator.pop(context);
+                                                FocusScope.of(
+                                                  context,
+                                                ).unfocus();
                                               },
                                               child: Text('Cancelar'),
                                             ),

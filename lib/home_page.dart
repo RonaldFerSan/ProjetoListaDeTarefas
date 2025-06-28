@@ -70,10 +70,13 @@ class _HomePageState extends State<HomePage> {
           SizedBox(width: 5),
           FloatingActionButton(
             onPressed: () {
-              (addController.text.isNotEmpty)
-                  ? prov.addTask(addController.text.trim(), false)
-                  : null;
+              if (addController.text.isNotEmpty) {
+                prov.addTask(addController.text.trim(), false);
+              } else {
+                null;
+              }
               addController.clear();
+              FocusScope.of(context).unfocus();
             },
             child: Icon(Icons.add),
           ),
