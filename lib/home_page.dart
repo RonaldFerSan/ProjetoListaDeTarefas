@@ -36,10 +36,54 @@ class _HomePageState extends State<HomePage> {
               child: const Text("Tarefas", style: TextStyle(fontSize: 25)),
             ),
             Expanded(child: ListViewTasks()),
+            BottomAppBar(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: addController,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: InputDecoration(
+                        filled: true,
+                        prefixIcon: Icon(
+                          Icons.my_library_books_outlined,
+                          color: Colors.blueGrey[200],
+                        ),
+                        label: Text(
+                          "Adicionar tarefa",
+                          style: TextStyle(color: Colors.black45),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  FloatingActionButton(
+                    onPressed: () {
+                      if (addController.text.isNotEmpty) {
+                        prov.addTask(addController.text.trim(), false);
+                      } else {
+                        null;
+                      }
+                      addController.clear();
+                      FocusScope.of(context).unfocus();
+                    },
+                    child: Icon(Icons.add),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 5),
           ],
         ),
       ),
-      floatingActionButton: Row(
+
+      /*floatingActionButton: Row(
         children: [
           Expanded(
             child: Container(
@@ -81,7 +125,7 @@ class _HomePageState extends State<HomePage> {
             child: Icon(Icons.add),
           ),
         ],
-      ),
+      ),*/
     );
   }
 }
